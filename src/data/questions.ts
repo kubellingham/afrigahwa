@@ -3,12 +3,15 @@ import type { Question } from '../types'
 export const QUESTIONS: Question[] = [
   {
     id: 'flavor-world',
-    prompt: 'Pick the flavor world that makes you happiest.',
+    prompt: {
+      en: 'Pick the flavor world that makes you happiest.',
+      sw: 'Chagua ladha inayokufurahisha zaidi.',
+    },
     options: [
       {
         id: 'fruity',
-        label: 'Bright & fruity',
-        detail: 'Berries, citrus, juicy things',
+        label: { en: 'Bright & fruity', sw: 'Angavu na ya matunda' },
+        detail: { en: 'Berries, citrus, juicy things', sw: 'Beri, machungwa, vitu vitamu' },
         emoji: '🫐',
         effect: {
           targets: { fruitiness: 9, acidity: 8, chocolate: 2 },
@@ -17,8 +20,8 @@ export const QUESTIONS: Question[] = [
       },
       {
         id: 'floral',
-        label: 'Floral & tea-like',
-        detail: 'Jasmine, honeysuckle, elegance',
+        label: { en: 'Floral & tea-like', sw: 'Ya maua, kama chai' },
+        detail: { en: 'Delicate, elegant, perfumed', sw: 'Nyepesi, ya kifahari' },
         emoji: '🌸',
         effect: {
           targets: { floral: 9, body: 3, chocolate: 1 },
@@ -27,8 +30,8 @@ export const QUESTIONS: Question[] = [
       },
       {
         id: 'chocolate',
-        label: 'Chocolate & nutty',
-        detail: 'Cocoa, hazelnut, caramel comfort',
+        label: { en: 'Chocolate & nutty', sw: 'Chokoleti na karanga' },
+        detail: { en: 'Cocoa, caramel comfort', sw: 'Kakao, faraja ya karameli' },
         emoji: '🍫',
         effect: {
           targets: { chocolate: 9, body: 7, floral: 1 },
@@ -36,12 +39,12 @@ export const QUESTIONS: Question[] = [
         },
       },
       {
-        id: 'earthy',
-        label: 'Deep & earthy',
-        detail: 'Spice, cedar, molasses, gravitas',
+        id: 'strong',
+        label: { en: 'Strong & earthy', sw: 'Kali na nzito' },
+        detail: { en: 'Bold, dark, serious strength', sw: 'Nguvu ya kweli' },
         emoji: '🪵',
         effect: {
-          targets: { earthy: 8, body: 8, acidity: 3 },
+          targets: { earthy: 8, body: 9, acidity: 2 },
           weight: 2,
         },
       },
@@ -49,26 +52,29 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'acidity',
-    prompt: 'How do you feel about bright, zingy acidity in coffee?',
+    prompt: {
+      en: 'How do you feel about bright, zingy acidity in coffee?',
+      sw: 'Unaonaje uchachu mkali, wa kuchangamsha kwenye kahawa?',
+    },
     options: [
       {
         id: 'love',
-        label: 'Love it',
-        detail: 'The zing is the point',
+        label: { en: 'Love it', sw: 'Naupenda' },
+        detail: { en: 'The zing is the point', sw: 'Ndiyo raha yenyewe' },
         emoji: '⚡',
         effect: { targets: { acidity: 9 }, weight: 1.5 },
       },
       {
         id: 'balanced',
-        label: 'In moderation',
-        detail: 'Lively but not sour, please',
+        label: { en: 'In moderation', sw: 'Kwa kiasi' },
+        detail: { en: 'Lively but not sour, please', sw: 'Changamfu ila isiwe chachu sana' },
         emoji: '⚖️',
         effect: { targets: { acidity: 6 } },
       },
       {
         id: 'low',
-        label: 'Keep it smooth',
-        detail: 'Low acid, easy on the palate',
+        label: { en: 'Keep it smooth', sw: 'Iwe laini' },
+        detail: { en: 'Low acid, easy on the palate', sw: 'Uchachu mdogo, rahisi kunywa' },
         emoji: '🌊',
         effect: { targets: { acidity: 3, body: 7 }, weight: 1.5 },
       },
@@ -76,152 +82,93 @@ export const QUESTIONS: Question[] = [
   },
   {
     id: 'body',
-    prompt: 'What should coffee feel like in your mouth?',
+    prompt: {
+      en: 'What should coffee feel like in your mouth?',
+      sw: 'Kahawa ijisikieje mdomoni mwako?',
+    },
     options: [
       {
         id: 'light',
-        label: 'Light & delicate',
-        detail: 'Like a fine tea',
+        label: { en: 'Light & delicate', sw: 'Nyepesi na tulivu' },
+        detail: { en: 'Like a fine tea', sw: 'Kama chai bora' },
         emoji: '🪶',
         effect: { targets: { body: 3 }, weight: 1.5 },
       },
       {
         id: 'medium',
-        label: 'Silky & medium',
-        detail: 'Smooth, balanced weight',
+        label: { en: 'Silky & medium', sw: 'Laini, ya wastani' },
+        detail: { en: 'Smooth, balanced weight', sw: 'Uzito wa uwiano' },
         emoji: '🥂',
         effect: { targets: { body: 5 } },
       },
       {
         id: 'heavy',
-        label: 'Thick & syrupy',
-        detail: 'Coats the tongue, means business',
+        label: { en: 'Thick & syrupy', sw: 'Nzito kama asali' },
+        detail: { en: 'Coats the tongue, means business', sw: 'Inajaa mdomoni' },
         emoji: '🍯',
         effect: { targets: { body: 9 }, weight: 1.5 },
       },
     ],
   },
   {
-    id: 'sweetness',
-    prompt: 'Which kind of sweetness tempts you most?',
-    options: [
-      {
-        id: 'jammy',
-        label: 'Jammy & winey',
-        detail: 'Berry compote, red wine',
-        emoji: '🍷',
-        effect: { targets: { sweetness: 8, fruitiness: 8, wildness: 7 } },
-      },
-      {
-        id: 'honey',
-        label: 'Honey & caramel',
-        detail: 'Golden, syrupy, gentle',
-        emoji: '🍮',
-        effect: { targets: { sweetness: 9, chocolate: 4 } },
-      },
-      {
-        id: 'cocoa',
-        label: 'Dark cocoa',
-        detail: 'Bittersweet, grown-up',
-        emoji: '🍩',
-        effect: { targets: { sweetness: 5, chocolate: 8 } },
-      },
-      {
-        id: 'dry',
-        label: 'Barely sweet',
-        detail: 'Crisp and dry suits me',
-        emoji: '🌿',
-        effect: { targets: { sweetness: 4, acidity: 7 } },
-      },
-    ],
-  },
-  {
     id: 'milk',
-    prompt: 'How do you usually take your coffee?',
+    prompt: {
+      en: 'How do you usually take your coffee?',
+      sw: 'Huwa unakunywa kahawa yako vipi?',
+    },
     options: [
       {
         id: 'black',
-        label: 'Black, always',
-        detail: 'Nothing between me and the bean',
+        label: { en: 'Black, always', sw: 'Bila maziwa, kila mara' },
+        detail: { en: 'Nothing between me and the bean', sw: 'Kahawa tupu' },
         emoji: '☕',
         effect: { targets: { floral: 6, acidity: 6 }, weight: 0.75 },
       },
       {
         id: 'splash',
-        label: 'A splash of milk',
-        detail: 'Just to round it off',
+        label: { en: 'A splash of milk', sw: 'Maziwa kidogo' },
+        detail: { en: 'Just to round it off', sw: 'Kulainisha tu' },
         emoji: '🥛',
         effect: { targets: { body: 6, sweetness: 7 }, weight: 0.75 },
       },
       {
         id: 'milky',
-        label: 'Lattes & flat whites',
-        detail: 'Coffee should hug the milk',
+        label: { en: 'Lattes & flat whites', sw: 'Latte na maziwa mengi' },
+        detail: { en: 'Coffee should hug the milk', sw: 'Kahawa ikumbatie maziwa' },
         emoji: '🤍',
         effect: {
           targets: { body: 8, chocolate: 8, floral: 2 },
           weight: 1.25,
-          boosts: { 'uganda-bugisu': 6, 'congo-kivu': 5, 'cameroon-boyo': 3 },
+          boosts: { ruvuma: 5, kagera: 4, mbozi: 3 },
         },
       },
     ],
   },
   {
-    id: 'brew',
-    prompt: 'What’s your go-to way of brewing?',
-    options: [
-      {
-        id: 'pourover',
-        label: 'Pour-over / filter',
-        detail: 'V60, Chemex, batch brew',
-        emoji: '🫖',
-        effect: { targets: { acidity: 7, body: 4 }, weight: 0.5, boosts: {} },
-      },
-      {
-        id: 'espresso',
-        label: 'Espresso machine',
-        detail: 'Short, intense, glorious',
-        emoji: '🎯',
-        effect: { targets: { body: 7, chocolate: 6 }, weight: 0.5 },
-      },
-      {
-        id: 'frenchpress',
-        label: 'French press / moka pot',
-        detail: 'Full immersion, full flavor',
-        emoji: '🏺',
-        effect: { targets: { body: 8, earthy: 5 }, weight: 0.5 },
-      },
-      {
-        id: 'aeropress',
-        label: 'AeroPress / whatever works',
-        detail: 'Flexible and curious',
-        emoji: '🧪',
-        effect: { targets: {}, weight: 0 },
-      },
-    ],
-  },
-  {
     id: 'adventure',
-    prompt: 'Last one — how adventurous are you feeling?',
+    prompt: {
+      en: 'Last one — how adventurous are you feeling?',
+      sw: 'La mwisho — uko tayari kujaribu kitu kipya kiasi gani?',
+    },
     options: [
       {
         id: 'classic',
-        label: 'Keep it classic',
-        detail: 'A dependable, delicious cup',
+        label: { en: 'Keep it classic', sw: 'Ya kawaida tu' },
+        detail: { en: 'A dependable, delicious cup', sw: 'Kikombe cha kuaminika' },
         emoji: '🧭',
         effect: { targets: { wildness: 2 }, weight: 1.5 },
       },
       {
         id: 'curious',
-        label: 'Pleasantly surprised',
-        detail: 'Interesting, not intimidating',
+        label: { en: 'Pleasantly surprised', sw: 'Nishangazwe kidogo' },
+        detail: { en: 'Interesting, not intimidating', sw: 'Ya kuvutia, si ya kutisha' },
         emoji: '🗺️',
         effect: { targets: { wildness: 5 } },
       },
       {
         id: 'wild',
-        label: 'Take me somewhere wild',
-        detail: 'The weirder the better',
+        label: { en: 'Take me somewhere wild', sw: 'Nipeleke mbali kabisa' },
+        detail: { en: 'The bolder the better', sw: 'Kali zaidi, bora zaidi' },
         emoji: '🌋',
         effect: { targets: { wildness: 10 }, weight: 1.5 },
       },

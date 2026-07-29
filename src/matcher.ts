@@ -1,6 +1,5 @@
 import { ATTRIBUTES, type Attribute, type Coffee, type Match, type Option } from './types'
 import { COFFEES } from './data/coffees'
-import { QUESTIONS } from './data/questions'
 
 interface Accumulated {
   weightedSum: number
@@ -69,12 +68,14 @@ function similarity(
   return Math.max(0, 100 - avgDistance * 10)
 }
 
-/** Small bonus when the coffee shines with the user's brew method. */
-function brewAffinity(coffee: Coffee, selected: Option[]): number {
-  const brewAnswer = selected[QUESTIONS.findIndex((q) => q.id === 'brew')]
-  if (!brewAnswer) return 0
-  return coffee.bestBrews.includes(brewAnswer.id) ? 4 : 0
-}
+/**
+ * The displayed percentage keeps the top score honest (better answers →
+ * higher number) while amplifying the raw gap between the winner and the
+ * rest, so the top result reads as a clear recommendation rather than one
+ * of several near-identical options.
+ */
+const GAP_AMPLIFIER = 3
+const MIN_RUNNER_GAP = 7
 
 export function computeMatches(selected: Option[]): Match[] {
   const { profile, weights } = buildUserProfile(selected)
@@ -82,20 +83,17 @@ export function computeMatches(selected: Option[]): Match[] {
 
   const raw = COFFEES.map((coffee) => ({
     coffee,
-    score:
-      similarity(coffee, profile, weights) +
-      (boosts[coffee.id] ?? 0) +
-      brewAffinity(coffee, selected),
+    score: similarity(coffee, profile, weights) + (boosts[coffee.id] ?? 0),
   }))
 
   raw.sort((a, b) => b.score - a.score)
 
-  // Present scores as friendly match percentages: best match maps toward the
-  // high 90s while preserving the relative ordering and gaps.
   const top = raw[0].score
-  const lift = Math.min(97 - top, 20)
-  return raw.map(({ coffee, score }) => ({
-    coffee,
-    score: Math.round(Math.min(99, Math.max(20, score + Math.max(0, lift)))),
-  }))
+  const topDisplay = Math.round(Math.min(97, Math.max(72, top)))
+
+  return raw.map(({ coffee, score }, rank) => {
+    if (rank === 0) return { coffee, score: topDisplay }
+    const gap = Math.max((top - score) * GAP_AMPLIFIER, MIN_RUNNER_GAP + rank - 1)
+    return { coffee, score: Math.round(Math.max(30, topDisplay - gap)) }
+  })
 }
