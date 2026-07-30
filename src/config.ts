@@ -4,4 +4,4 @@
  * WhatsApp's contact picker with the message pre-filled instead of a
  * direct chat.
  */
-export const WHATSAPP_NUMBER = ''
+export const WHATSAPP_NUMBER = '255759000027'
